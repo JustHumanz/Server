@@ -1,0 +1,21 @@
+
+##add epel and Remi repo
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+##Install PHP 7.2
+sudo yum install php php-mysqlnd php-pecl-zip php-xml php-mbstring php-gd php-mcrypt php-pear php-pspell php-pdo php-xml php-intl php-zip php-zlib
+
+##edit www.conf on /etc/php-fpm.d/www.conf
+nano /etc/php-fpm.d/www.conf
+
+#and change 
+listen = 127.0.0.1:9000
+user = nginx (cuz i am use nginx)
+group = nginx
+
+#save it and start php-fpm
+sudo systemctl start php-fpm && sudo systemctl enable php-fpm
+
+
+

@@ -1,0 +1,28 @@
+## Install OwnCloud 
+
+##download owncloud 
+wget https://download.owncloud.org/community/owncloud-10.0.7.zip
+
+##Extrack owncloud,you need unzip
+unzip  owncloud-10.0.7.zip
+
+##move owncloud to /var/www/owncloud
+
+mv owncloud /var/www/
+
+## change directory owner of owncloud
+
+cd /var/www
+chown nginx:nginx owncloud
+
+## make database owncloud
+mysql -u root -p
+mysql> CREATE DATABASE ownclouddb;
+mysql> GRANT ALL PRIVILEGES ON ownclouddb.* TO 'ownclouduser'@'localhost' IDENTIFIED BY 'Y0ur-pa55w0rD' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+
+##after it restart the nginx
+
+sudo systemctl restart nginx
+

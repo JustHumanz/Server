@@ -1,0 +1,9 @@
+## Install Shell In Box
+yum install openssl shellinabox
+
+## Config the Shell In Box
+sudo nano /etc/sysconfig/shellinaboxd
+## and change "OPTS" to OPTS="--disable-ssl -s /:LOGIN " (for disable ssl)
+## Start the shell in a box
+
+sudo systemctl start shellinaboxd && sudo systemctl enable shellinaboxd
