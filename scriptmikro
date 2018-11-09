@@ -1,0 +1,5 @@
+:if ($leaseBound = 1) do={
+	:do {
+	    :tool fetch url="https://api.telegram.org/bot725295845:AAHsEoRjWgtFi0GACKX-r3JOSpZeKp_1hXU/sendMessage?chat_id=386788173&text=Device $leaseActMAC Up With Ipv4 $leaseActIP "
+	} on-error={:log error "Failed to send alert email to Telegram"}
+}
