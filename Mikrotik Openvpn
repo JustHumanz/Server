@@ -1,0 +1,66 @@
+hal hal yang dibutuhkan
+1.ip public
+2.DNS(domain name service) pakai no-ip juga bisa
+3.mikrotik
+
+
+pertama membuat sertifikatnya dulu,'common-name' itu bisa diganti semau agan,sertifikat ini berlaku selama 10 tahun bisa agan ganti di
+'days-valid=3650' dan 'key-size'nya saya sarankan 2048 agar saat membuat/mencetak sertifikat cpu mikrotik kuat
+
+/certificate
+add name=ca-template common-name=humanz.ddns.net days-valid=3650 key-size=2048 key-usage=crl-sign,key-cert-sign
+add name=server-template common-name=vpn.humanz.ddns.net days-valid=3650 key-size=2048 key-usage=digital-signature,key-encipherment,tls-server
+add name=client-template common-name=client.humanz.ddns.net days-valid=3650 key-size=2048 key-usage=tls-client
+
+menyetak/print sertifiakt(cpu otomatis 100%)
+
+/certificate
+sign ca-template name=ca-certificate
+sign server-template name=server-certificate ca=ca-certificate
+sign client-template name=client-certificate ca=ca-certificate
+
+membuat kata sandi untuk sertifikat yang sudah dibuat,'export-passphrase=1sampai8' bisa agan sesuaikan
+
+/certificate
+export-certificate ca-certificate export-passphrase=""
+export-certificate client-certificate export-passphrase=1sampai8
+
+membuat ip-pool yang akan digunakan oleh client
+/ip
+pool add name="vpn-address" ranges=100.100.100.2-100.100.100.100
+
+membuat profile 'vpn-profile' mungkin bisa disesuaikan dan membuat user,'name=humanz' 'password=1sampai8' bisa agan sesuaikan dan jika ingin menambahkan user tinggal add di /ppp secret(mirip baris kedua)
+
+/ppp
+profile add name="vpn-profile" use-encryption=yes local-address=100.100.100.1 dns-server=100.100.100.1 remote-address=vpn-address
+secret add name=humanz profile=vpn-profile password=1sampai8
+
+membuat interface 
+
+/interface ovpn-server server
+set default-profile=vpn-profile certificate=server-certificate require-client-certificate=yes auth=sha1 cipher=aes128,aes192,aes256 enabled=yes
+
+menambah firewall rule agar si client bisa terkoneksi
+
+/ip firewall filter
+add chain=input protocol=tcp dst-port=1194 action=accept place-before=0 comment="Allow OpenVPN"
+
+karena di mikrotik tidak ada openssl maka agan harus membuat kata sandi untuk sertifikat yang sudah dibuat melalui PC/laptop agan
+openssl rsa -in client.key -out client.key
+Enter pass phrase for client.key: 1sampai8
+
+
+
+BONUS 
+script bot telegram jika user telah masuk ke openvpn
+
+UP
+tambahkan scriptnya di ppp > profile > (nama profile vpn agan) > scrips 
+/tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendMessage?chat_id=[chat_id_agan]&text= niichan seseorang telah tersambung melalui openvpn :D"
+/tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendSticker?chat_id==[chat_id_agan]&sticker=CAADBQADSgADTesNF6dCh-76fiQQAg"
+
+DOWN
+
+/tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendMessage?chat_id==[chat_id_agan]&text="sambungan dengan ovpn telah terputus :'( "
+/tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendSticker?chat_id==[chat_id_agan]&sticker=CAADBQADQQADTesNFyB8NkBMuexeAg"
+/tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendMessage?chat_id=[chat_id_agan]&text="bye bye"
