@@ -50,6 +50,103 @@ openssl rsa -in client.key -out client.key
 Enter pass phrase for client.key: 1sampai8
 
 
+membuat ovpn untuk client 
+client
+dev tun
+proto tcp
+remote humanz.ddns.net 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+#ca ca.crt
+#cert client.crt
+#key client.key
+remote-cert-tls server
+cipher AES-128-CBC
+auth SHA1
+auth-user-pass
+redirect-gateway def1
+verb 3
+
+
+<ca>
+-----BEGIN CERTIFICATE-----
+MIIDHjCCAgagAwIBAgIIWEG7CIqGH7AwDQYJKoZIhvcNAQELBQAwGjEYMBYGA1UE
+AwwPaHVtYW56LmRkbnMubmV0MB4XDTE5MDIxMDEyNDAyOFoXDTI5MDIwNzEyNDAy
+OFowGjEYMBYGA1UEAwwPaHVtYW56LmRkbnMubmV0MIIBIjANBgkqhkiG9w0BAQEF
+AAOCAQ8AMIIBCgKCAQEA11tszpBxeHk6E4Qqju+YDPpuRpgoAYJFaFpcVMjmDD+5
+0vjofkQGJGicig0DFfuU+3yxOaAQR2sGEtaBPG58mlEHqs0n8eWvqsfRBxdULnDu
+LwUEJAz5eg2C/jptHPzEVYj8n/IkOz3i8iY7n4dKfjaxVucYflZcLXX9H9w6r/+p
+ySQfg+DbA7R4x1XXb38pu2veF3TDVAuwPrSXuSyc73bm2aNaJzRMzTvcLjATfMjq
++a0U1QCQtHCrhAQzoEjnZFZqRrB28y16a/kIKAE7sS1CcPx+oLgAUSe8XahH3xjs
+cEzlkekm5deZXjmB7OR6aoARyKLEvZHHk1ch5cGfBwIDAQABo2gwZjAPBgNVHRMB
+Af8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUmQCkEpo2gMQBswqM
+bdEJ747mvtIwJAYJYIZIAYb4QgENBBcWFUdlbmVyYXRlZCBieSBSb3V0ZXJPUzAN
+BgkqhkiG9w0BAQsFAAOCAQEAMmpHQivp5lZhGNuXqw0KfsUPXFhvZK9cNR4g4iaK
+PG9b7mSyPZrnxDjRclaP68WxsMS4Kur2zh1ndC40EqLLoIqPbio5d+GWsmuHUOOh
++VUMZzG5jskOenmk1GWRVGqTYBuJkKhwWNSOg/vtf7cnjBNQsJOFSM2NVXQSHGyw
+WAlk84DchTFFyggx4NsWcXzyADvYA5Y9O4NeSwUO7qOm1DhZvlq3MDH1OJoaCyCh
+9izxCkyylj7Wv5QwhH043WXUkwYByqkM5VNsCuOy/36ZCeLb1KUe118bqLdFExDc
+3ROO1melO2xQrsetVyBe5CotDEAWgZLKOi1WktsR6FCmyA==
+-----END CERTIFICATE-----
+</ca>
+
+<cert>
+-----BEGIN CERTIFICATE-----
+MIIDOjCCAiKgAwIBAgIIHedaqNtFqh0wDQYJKoZIhvcNAQELBQAwGjEYMBYGA1UE
+AwwPaHVtYW56LmRkbnMubmV0MB4XDTE5MDIxMDEyNDExMFoXDTI5MDIwNzEyNDEx
+MFowITEfMB0GA1UEAwwWY2xpZW50Lmh1bWFuei5kZG5zLm5ldDCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBAOnkdlSEG6I9g1SBcAZpp0r3vlizd8ERFbyt
+ojaU30N3U/tK+P/wishLf9QEx7kF9S8fQVd2AYSfr5e0dQ6TOgEP6tJ1WVxX95vc
+KFTZ08Q45imgAELUY5ChES/9Oz6Q8zhAqcJqYMSrHmDkS9kjQnAvdtinoJ2UHwAF
+Q7nHQpREUkKFG11EPowwsYxt9ba1bH1Uaw/Nza09W6gJHcfoWfH52NjSUnwUb8fH
+foxuS3bPaNDghwqOTjHVNkN6Zhvuc9bUtcI0xZOEpZ0ccM/eM9kqR2u/wbGtntdm
+/74GEgCZ8nMZHP8SIu7v88Q50zZG59GgtbPQg7CQPUJ0de2UFy8CAwEAAaN9MHsw
+EwYDVR0lBAwwCgYIKwYBBQUHAwIwHQYDVR0OBBYEFD/QTekzCMQFr11gM+hiwWhB
+0xJ5MB8GA1UdIwQYMBaAFJkApBKaNoDEAbMKjG3RCe+O5r7SMCQGCWCGSAGG+EIB
+DQQXFhVHZW5lcmF0ZWQgYnkgUm91dGVyT1MwDQYJKoZIhvcNAQELBQADggEBAKKr
+Iy+3AJOJaQ1OsHhlGaxmxiRN6m5OQLZBH+gP8n8/fWu3cgR6QJd8sm3epgPm1EU0
+IkUA1poUznXnGM0R94JseEhYqM84Nu75pm2u3rurySjJZUqmGGNNBfhkdeQ7oB4T
+bnzFJ+B9Kd6Q7g9SeljeqRHpj7F0LEU4jXDnwSIPC3lwQK2I+karfk93TwrpGoOG
+b85Ndp3oZlHCPIo9bGE3HasexPIcdj1aXeMSU8b2omTJNhh0OeNI6G3HU2uZLTJs
+fdPNH+/q7GCKUZw2dOXndUa6GWFUL9zfTYTsQLQJJRO6fdh5AhTv7aMgUDGtr/zG
+vPZXovyqnaLfP2zc0Fo=
+-----END CERTIFICATE-----
+</cert>
+
+<key>
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpgIBAAKCAQEA6eR2VIQboj2DVIFwBmmnSve+WLN3wREVvK2iNpTfQ3dT+0r4
+//CKyEt/1ATHuQX1Lx9BV3YBhJ+vl7R1DpM6AQ/q0nVZXFf3m9woVNnTxDjmKaAA
+QtRjkKERL/07PpDzOECpwmpgxKseYORL2SNCcC922KegnZQfAAVDucdClERSQoUb
+XUQ+jDCxjG31trVsfVRrD83NrT1bqAkdx+hZ8fnY2NJSfBRvx8d+jG5Lds9o0OCH
+Co5OMdU2Q3pmG+5z1tS1wjTFk4SlnRxwz94z2SpHa7/Bsa2e12b/vgYSAJnycxkc
+/xIi7u/zxDnTNkbn0aC1s9CDsJA9QnR17ZQXLwIDAQABAoIBAQCE1xM18UpYnSNI
+DbP4kG1JsOfVLSko6HE2Fk/5PBiKEu4J3Y0KoC3SkL7rRkPBHFcjCldsO0OldaSf
+Pwj03D2neMjf+3JjdjrVtPbbKlSSL9bZcVx0mHhsHm7KmMLbSCw7mM5R82U+jgnU
+8hT6IIKNgQe5CYu5s/TfaB4NF9UCq60vpUx+f2QZ0dGcs+etjjhjLO3GG9Tj5Ra1
+64gbw5MrrsiYcI8U6+j1DcdsvMwAJYkM9ebfPrtJZcbLPFeyymRUf+mcEJaM1MyH
+517UDorh2CmkFrBhj3RBXxFdgGkg0Mk7hu0TvlQ5XOnDmkDnduajlv1ke7fE9pjH
+zslNBiahAoGBAPUcuGD8LhSaxO0j8UeRU/HoCmz1FzJZMWMiBNikfneSTgq3JXeY
+YuUb26V4lZbHSEcJkXRs2mhbQy1yek/9yIh6sb1UDp/TXBuvz9F6mkXXW30B0/pc
+tMtG6zONPfproZWctq0NZkcqEnBxuPeLbRFwGay5aSSlNkcCnPlhQsQpAoGBAPRI
+KDo1bZMfHdxvYbsifiw8siCjBHDvs7LmpWLCI2VJvtcznjH2znvSrb1NUIz7Ofvk
+nWkL5jKCZPiCaJC2BRPnh/0X7ezgXS9J1PlE6iRyqbI3aMUWjTFChe4ifcud3tUc
+lyvEo/oWe0BGfq5mjqLuyIRvhchSoP7+tp4SM6uXAoGBAOQHEPyg/pmKllNrEacb
+6zVsQm604Byl340y88E73q+Me2/6jC+jo7Uy4nchJED+Kh50J05hihp1dJyOGH3c
+Qje9tSbGUUicz96uA68E2QrKW8GC9tq+bi+CTYNLDfKvOMa/4S5C/fiMilTzZzlc
+C16ipDAM2WUPEdyj8LcLpZppAoGBANHEKK8bdBWS8dx51M2SaBBqqnd2JPkqDQCC
+KODuXuC6e+NmUuEK0/LmTgUxoAsALKGOhlFPQ4R6DmSL72jctO2Ls231n3z6iWpz
+FyxaLknQIMKF7DTaEbKMMl/0RFuWHGSaYYHXIQw/Q+VE48G1FaT6MTvwXExSECgH
+6B9C+BXPAoGBAKIBbLoAA6F6QhC3TXt7xKfySODOQRXITlndd0qV9Mck/yuAN0Y5
+nxxO0tMJGt5EDZPmVBJqypvjziMUDhgvaXtfE5/6+6VaM4jhCNRCNBxXOQPcFHuw
+UIXanZI0jsjGo2Js4n6f+I+OJghX0UiQ33itNtTHYvw3prpyGLsFrtrY
+-----END RSA PRIVATE KEY-----
+</key>
+
+
+
 
 BONUS 
 script bot telegram jika user telah masuk ke openvpn
@@ -64,3 +161,5 @@ DOWN
 /tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendMessage?chat_id==[chat_id_agan]&text="sambungan dengan ovpn telah terputus :'( "
 /tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendSticker?chat_id==[chat_id_agan]&sticker=CAADBQADQQADTesNFyB8NkBMuexeAg"
 /tool fetch url="https://api.telegram.org/bot[id_bot_agan]/sendMessage?chat_id=[chat_id_agan]&text="bye bye"
+
+
