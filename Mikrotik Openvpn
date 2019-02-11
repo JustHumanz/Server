@@ -49,12 +49,15 @@ karena di mikrotik tidak ada openssl maka agan harus membuat kata sandi untuk se
 openssl rsa -in client.key -out client.key
 Enter pass phrase for client.key: 1sampai8
 
+Download sertifikat untuk clientnya 
+letaknya di file 
 
-membuat ovpn untuk client 
+membuat ovpn untuk client (contoh)
+
 client
 dev tun
 proto tcp
-remote humanz.ddns.net 1194
+remote humanz.ddns.net (sesuaikan dengan dns agan) 1194
 resolv-retry infinite
 nobind
 persist-key
@@ -69,8 +72,8 @@ auth-user-pass
 redirect-gateway def1
 verb 3
 
-
-<ca>
+#buka file ca.crt dan copas disini
+<ca> 
 -----BEGIN CERTIFICATE-----
 MIIDHjCCAgagAwIBAgIIWEG7CIqGH7AwDQYJKoZIhvcNAQELBQAwGjEYMBYGA1UE
 AwwPaHVtYW56LmRkbnMubmV0MB4XDTE5MDIxMDEyNDAyOFoXDTI5MDIwNzEyNDAy
@@ -91,7 +94,7 @@ WAlk84DchTFFyggx4NsWcXzyADvYA5Y9O4NeSwUO7qOm1DhZvlq3MDH1OJoaCyCh
 3ROO1melO2xQrsetVyBe5CotDEAWgZLKOi1WktsR6FCmyA==
 -----END CERTIFICATE-----
 </ca>
-
+#buka file client.crt dan copas disini
 <cert>
 -----BEGIN CERTIFICATE-----
 MIIDOjCCAiKgAwIBAgIIHedaqNtFqh0wDQYJKoZIhvcNAQELBQAwGjEYMBYGA1UE
@@ -114,7 +117,7 @@ fdPNH+/q7GCKUZw2dOXndUa6GWFUL9zfTYTsQLQJJRO6fdh5AhTv7aMgUDGtr/zG
 vPZXovyqnaLfP2zc0Fo=
 -----END CERTIFICATE-----
 </cert>
-
+#buka file client.key dan copas disini
 <key>
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpgIBAAKCAQEA6eR2VIQboj2DVIFwBmmnSve+WLN3wREVvK2iNpTfQ3dT+0r4
