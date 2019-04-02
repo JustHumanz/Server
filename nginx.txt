@@ -73,18 +73,14 @@ server {
         try_files $uri $uri/ /index.php?$args;        
     }
 
-    location ~ \.php$ {
-	root /user/Just_Humanz/html;
-	index index.html index.htm index.php;
-	fastcgi_pass   127.0.0.1:9000;
-	fastcgi_split_path_info ^(.+\.php)(/.+)$;
-	fastcgi_index  index.php;
-        #include snippets/fastcgi-php.conf;
-        #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_param  SCRIPT_FILENAME  $request_filename;
-	include fastcgi_params;
-    }
-
+    location ~* \.php$ {
+    fastcgi_index   index.php;
+    fastcgi_pass    127.0.0.1:9000;
+    #fastcgi_pass   unix:/var/run/php-fpm/php-fpm.sock;
+    include         fastcgi_params;
+    fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+    fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
+}
     location ~ \.css {
     	add_header  Content-Type    text/css;
 	}
