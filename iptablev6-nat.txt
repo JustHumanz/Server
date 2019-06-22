@@ -1,0 +1,4 @@
+ip6tables -A FORWARD -m state --state NEW -i <openvpn-interface-ipv6> -o <interface-server-ipv6> -s <IPv6 Client>/64 -j ACCEPT
+ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding 
+ip6tables -t nat -A POSTROUTING -o <interface-server-ipv6> -s <IPv6 Address client>/64 -j MASQUERADE
