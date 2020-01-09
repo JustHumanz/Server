@@ -8,7 +8,7 @@ logg="/var/log/costume_script.log"
 #lo2=$(systemctl is-active httpd)
 function memmm() {
   ## check if free memory is less or equals to  100MB
-  if [[ $(free -mt | grep Total | awk '{print $4}') -le 100000  ]]; then
+  if [[ $(free -mt | grep Total | awk '{print $4}') -le 100  ]]; then
           echo "$now Server down lol" >> $logg
           ## get top processes consuming system memory and save to temporary file
           ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head > /opt/.hiden/top_proccesses_consuming_memory.txt
